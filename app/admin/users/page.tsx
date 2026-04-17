@@ -4,6 +4,8 @@ import { toggleUserRole } from '@/app/lib/actions';
 import { Users, Shield, ShieldOff } from 'lucide-react';
 import Button from '@/components/Button';
 
+export const dynamic = 'force-dynamic';
+
 async function getUsers() {
   await dbConnect();
   const users = await User.find({}).sort({ createdAt: -1 }).lean();

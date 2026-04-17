@@ -10,10 +10,16 @@ export const metadata: Metadata = {
   description: 'Pro repairs, upgrades and diagnostics for your gaming rig.',
 };
 
+export const dynamic = 'force-dynamic';
+
 async function getServices() {
-  await dbConnect();
-  const services = await Service.find({}).sort({ category: 1 }).lean();
-  return JSON.parse(JSON.stringify(services));
+  try {
+    await dbConnect();
+    const services = await Service.find({}).sort({ category: 1 }).lean();
+    return JSON.parse(JSON.stringify(services));
+  } catch {
+    return [];
+  }
 }
 
 const iconMap: any = {

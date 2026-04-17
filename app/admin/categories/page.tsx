@@ -5,6 +5,8 @@ import { createCategory, createSubcategory } from '@/app/lib/actions';
 import Button from '@/components/Button';
 import { Plus, Folder } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 async function getData() {
   await dbConnect();
   const categories = await Category.find({}).lean();

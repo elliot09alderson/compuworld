@@ -5,16 +5,26 @@ import Product from '@/models/Product';
 import Link from 'next/link';
 import { ArrowRight, Wrench, ShieldCheck, Cpu, Zap, Gamepad2 } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 async function getFeaturedProducts() {
-  await dbConnect();
-  const products = await Product.find({ isFeatured: true }).limit(4).lean();
-  return JSON.parse(JSON.stringify(products));
+  try {
+    await dbConnect();
+    const products = await Product.find({ isFeatured: true }).limit(4).lean();
+    return JSON.parse(JSON.stringify(products));
+  } catch {
+    return [];
+  }
 }
 
 async function getNewArrivals() {
-  await dbConnect();
-  const products = await Product.find({ isFeatured: false }).sort({ createdAt: -1 }).limit(4).lean();
-  return JSON.parse(JSON.stringify(products));
+  try {
+    await dbConnect();
+    const products = await Product.find({ isFeatured: false }).sort({ createdAt: -1 }).limit(4).lean();
+    return JSON.parse(JSON.stringify(products));
+  } catch {
+    return [];
+  }
 }
 
 export default async function Home() {

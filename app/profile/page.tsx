@@ -8,6 +8,8 @@ import WishlistButton from '@/components/WishlistButton';
 import AddToCartButton from '@/components/AddToCartButton';
 import { Package, Clock, CheckCircle2, XCircle, ChevronRight, User as UserIcon, Shield } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 async function getUserData(userId: string) {
     await dbConnect();
     

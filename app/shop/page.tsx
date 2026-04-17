@@ -10,27 +10,33 @@ export const metadata: Metadata = {
   description: 'Browse our collection of high-performance gaming gear.',
 };
 
+export const dynamic = 'force-dynamic';
+
 // Next.js 15: props.searchParams is a Promise
 type Props = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
 async function getProducts(query?: string) {
-  await dbConnect();
-  
-  let filter = {};
-  if (query) {
-      filter = {
-          $or: [
-              { name: { $regex: query, $options: 'i' } },
-              { description: { $regex: query, $options: 'i' } },
-              { category: { $regex: query, $options: 'i' } }
-          ]
-      };
-  }
+  try {
+    await dbConnect();
 
-  const products = await Product.find(filter).sort({ createdAt: -1 }).lean();
-  return JSON.parse(JSON.stringify(products));
+    let filter = {};
+    if (query) {
+        filter = {
+            $or: [
+                { name: { $regex: query, $options: 'i' } },
+                { description: { $regex: query, $options: 'i' } },
+                { category: { $regex: query, $options: 'i' } }
+            ]
+        };
+    }
+
+    const products = await Product.find(filter).sort({ createdAt: -1 }).lean();
+    return JSON.parse(JSON.stringify(products));
+  } catch {
+    return [];
+  }
 }
 
 export default async function ShopPage(props: Props) {

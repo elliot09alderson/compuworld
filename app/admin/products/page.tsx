@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { Plus, Search } from 'lucide-react';
 import DeleteProductButton from '@/components/admin/DeleteProductButton';
 
+export const dynamic = 'force-dynamic';
+
 async function getProducts() {
     await dbConnect();
     const products = await Product.find({}).sort({ createdAt: -1 }).lean();

@@ -9,6 +9,8 @@ import { auth } from '@/auth';
 import { ShoppingCart, Share2, Shield, Truck, Cpu, Layers, Star, Zap } from 'lucide-react';
 import { notFound } from 'next/navigation';
 
+export const dynamic = 'force-dynamic';
+
 async function getProduct(id: string) {
   try {
     await dbConnect();
